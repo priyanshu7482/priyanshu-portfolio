@@ -1,1 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priyanshu Kumar — Java Backend Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14;
+    --panel:#12161F;
+    --panel2:#171C27;
+    --border:#262C38;
+    --text:#C9D1D9;
+    --dim:#7D8590;
+    --gold:#E3B341;
+    --coffee:#C17A48;
+    --teal:#5FB3B3;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--gold);color:#000;}
 
+  /* ---------- Tab bar nav ---------- */
+  .tabbar{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:0 16px;
+    overflow-x:auto;
+    -ms-overflow-style:none;scrollbar-width:none;
+  }
+  .tabbar::-webkit-scrollbar{display:none;}
+  .tab-brand{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;color:var(--gold);
+    padding:16px 20px 16px 4px;font-size:14px;white-space:nowrap;
+  }
+  .tab{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;color:var(--dim);
+    padding:16px 18px;white-space:nowrap;
+    border-bottom:2px solid transparent;
+    cursor:pointer;transition:color .2s, border-color .2s;
+  }
+  .tab:hover{color:var(--text);}
+  .tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+  section{padding:110px 24px 60px;max-width:1000px;margin:0 auto;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--teal);font-size:13px;margin-bottom:18px;
+  }
+  .eyebrow::before{content:"// ";color:var(--dim);}
+  .cursor{display:inline-block;width:8px;height:14px;background:var(--teal);
+    animation:blink 1s step-end infinite;vertical-align:-2px;margin-left:2px;}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:92vh;display:flex;align-items:center;padding-top:90px;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:50px;align-items:center;width:100%;}
+  h1{
+    font-family:'JetBrains Mono',monospace;
+    font-size:clamp(32px,5vw,52px);
+    font-weight:700;color:var(--text);line-height:1.15;margin-bottom:10px;
+  }
+  .role{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--coffee);font-size:18px;font-weight:600;margin-bottom:20px;
+  }
+  .bio{color:var(--dim);font-size:16px;max-width:480px;margin-bottom:32px;}
+  .btns{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;
+    padding:13px 24px;border-radius:6px;transition:transform .15s, background .15s;
+  }
+  .btn-fill{background:var(--gold);color:#14100a;}
+  .btn-fill:hover{transform:translateY(-2px);background:#f0c257;}
+  .btn-outline{border:1px solid var(--border);color:var(--text);}
+  .btn-outline:hover{border-color:var(--teal);color:var(--teal);}
+
+  .code-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:10px;
+    overflow:hidden;box-shadow:0 20px 50px -20px rgba(0,0,0,.6);
+  }
+  .code-head{
+    display:flex;gap:6px;padding:12px 14px;border-bottom:1px solid var(--border);
+    background:var(--panel2);
+  }
+  .dot{width:10px;height:10px;border-radius:50%;}
+  .dot:nth-child(1){background:#E06C75;}
+  .dot:nth-child(2){background:#E5C07B;}
+  .dot:nth-child(3){background:#98C379;}
+  .code-body{padding:22px;font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.9;}
+  .kw{color:var(--gold);} .str{color:var(--teal);} .cm{color:var(--dim);} .cls{color:var(--coffee);}
+
+  .stats{display:flex;gap:40px;margin-top:44px;flex-wrap:wrap;}
+  .stat b{font-family:'JetBrains Mono',monospace;font-size:26px;color:var(--gold);display:block;}
+  .stat span{font-size:12.5px;color:var(--dim);}
+
+  /* ---------- Skills ---------- */
+  .skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-top:30px;}
+  .skill-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:20px;}
+  .skill-card h4{font-family:'JetBrains Mono',monospace;color:var(--coffee);font-size:13px;margin-bottom:12px;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:'JetBrains Mono',monospace;font-size:12px;
+    background:var(--panel2);border:1px solid var(--border);
+    padding:5px 10px;border-radius:5px;color:var(--text);
+  }
+
+  /* ---------- Projects ---------- */
+  h2{font-family:'JetBrains Mono',monospace;font-size:26px;margin-bottom:6px;}
+  .sub{color:var(--dim);font-size:14px;margin-bottom:20px;}
+  .project{
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;
+    padding:24px;margin-bottom:16px;transition:border-color .2s, transform .2s;
+  }
+  .project:hover{border-color:var(--gold);transform:translateY(-2px);}
+  .project-file{font-family:'JetBrains Mono',monospace;color:var(--dim);font-size:12px;margin-bottom:8px;}
+  .project h3{font-size:18px;margin-bottom:8px;color:var(--text);}
+  .project p{color:var(--dim);font-size:14.5px;margin-bottom:14px;}
+  .badge-status{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--teal);
+    border:1px solid var(--teal);padding:2px 8px;border-radius:20px;margin-left:10px;
+  }
+
+  /* ---------- Timeline ---------- */
+  .timeline{border-left:2px solid var(--border);margin-top:30px;padding-left:26px;}
+  .tl-item{position:relative;margin-bottom:34px;}
+  .tl-item::before{
+    content:"";position:absolute;left:-32px;top:4px;width:10px;height:10px;
+    border-radius:50%;background:var(--gold);
+  }
+  .tl-date{font-family:'JetBrains Mono',monospace;color:var(--teal);font-size:12.5px;margin-bottom:4px;}
+  .tl-item h3{font-size:16.5px;margin-bottom:2px;}
+  .tl-item .org{color:var(--coffee);font-size:13.5px;margin-bottom:8px;}
+  .tl-item ul{color:var(--dim);font-size:14px;padding-left:18px;}
+
+  /* ---------- Certificates ---------- */
+  .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:26px;}
+  .cert{
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:20px;
+  }
+  .cert .icon{font-size:22px;margin-bottom:10px;}
+  .cert h4{font-size:14.5px;margin-bottom:4px;}
+  .cert span{color:var(--dim);font-size:12.5px;}
+
+  /* ---------- Contact ---------- */
+  .contact-box{
+    background:var(--panel);border:1px solid var(--border);border-radius:10px;
+    padding:36px;text-align:center;margin-top:20px;
+  }
+  .contact-box p{color:var(--dim);margin-bottom:22px;font-size:14.5px;}
+  .contact-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .clink{
+    font-family:'JetBrains Mono',monospace;font-size:13.5px;
+    border:1px solid var(--border);padding:10px 18px;border-radius:6px;transition:.2s;
+  }
+  .clink:hover{border-color:var(--gold);color:var(--gold);}
+  footer{text-align:center;padding:30px;color:var(--dim);font-size:12.5px;font-family:'JetBrains Mono',monospace;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.show{opacity:1;transform:translateY(0);}
+
+  @media(max-width:800px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero{padding-top:70px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="tabbar" id="tabbar">
+  <div class="tab-brand">PK.dev</div>
+  <div class="tab active" data-target="hero">Home.java</div>
+  <div class="tab" data-target="skills">Skills.java</div>
+  <div class="tab" data-target="projects">Projects.java</div>
+  <div class="tab" data-target="experience">Education.java</div>
+  <div class="tab" data-target="certificates">Certificates.java</div>
+  <div class="tab" data-target="contact">Contact.java</div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">openToWork = true<span class="cursor"></span></div>
+      <h1>Priyanshu Kumar</h1>
+      <div class="role">Java Backend Developer · Fresher</div>
+      <p class="bio">MCA student at LNCT Bhopal building clean, scalable backends with Java & Spring Boot. I like turning real problems — auth systems, marketplaces, voting platforms — into working, well-structured code.</p>
+      <div class="btns">
+        <a href="#projects" class="btn btn-fill">View Projects →</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>3</b><span>Projects Built</span></div>
+        <div class="stat"><b>5+</b><span>Tech Stacks</span></div>
+        <div class="stat"><b>2</b><span>Certifications</span></div>
+        <div class="stat"><b>2026</b><span>MCA Batch</span></div>
+      </div>
+    </div>
+    <div class="code-card">
+      <div class="code-head"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <div class="code-body">
+<span class="kw">public class</span> <span class="cls">Developer</span> {<br>
+&nbsp;&nbsp;<span class="kw">String</span> name = <span class="str">"Priyanshu Kumar"</span>;<br>
+&nbsp;&nbsp;<span class="kw">String</span> role = <span class="str">"Java Backend Dev"</span>;<br>
+&nbsp;&nbsp;<span class="kw">String</span>[] stack = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Spring Boot"</span>, <span class="str">"MySQL"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Redis"</span>, <span class="str">"Angular"</span><br>
+&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;<span class="kw">boolean</span> openToWork = <span class="kw">true</span>;<br>
+&nbsp;&nbsp;<span class="cm">// service-based IT roles</span><br>
+}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="reveal">
+  <div class="eyebrow">skills</div>
+  <h2>What I Work With</h2>
+  <div class="skill-grid">
+    <div class="skill-card">
+      <h4>Language</h4>
+      <div class="chip-row">
+        <span class="chip">Java</span><span class="chip">Java 8 Features</span><span class="chip">OOP</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Backend</h4>
+      <div class="chip-row">
+        <span class="chip">Spring Boot</span><span class="chip">Spring Security</span><span class="chip">JWT</span><span class="chip">Hibernate / JPA</span><span class="chip">REST APIs</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Database</h4>
+      <div class="chip-row">
+        <span class="chip">MySQL</span><span class="chip">Redis</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Frontend</h4>
+      <div class="chip-row">
+        <span class="chip">Angular</span><span class="chip">Tailwind CSS</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Tools</h4>
+      <div class="chip-row">
+        <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Maven</span><span class="chip">Razorpay</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="reveal">
+  <div class="eyebrow">projects</div>
+  <h2>Things I've Built</h2>
+  <div class="sub">A mix of shipped and in-progress work.</div>
+
+  <div class="project">
+    <div class="project-file">01_AuthSystem.java</div>
+    <h3>Spring Boot Authentication System</h3>
+    <p>Secure, plug-and-play backend authentication module with JWT-based login, refresh tokens, and role-based access control — built for reuse across future projects.</p>
+    <div class="chip-row">
+      <span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">Spring Security</span><span class="chip">JWT</span><span class="chip">MySQL</span>
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-file">02_VoxElecta.java</div>
+    <h3>VoxElecta — Online Voting System</h3>
+    <p>A digital voting platform designed to let users cast votes securely, with clean backend logic for candidate management, vote integrity, and result tallying.</p>
+    <div class="chip-row">
+      <span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">MySQL</span><span class="chip">REST APIs</span>
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-file">03_HardwareMarketplace.java</div>
+    <h3>Hardware E-commerce Marketplace <span class="badge-status">In Progress</span></h3>
+    <p>A B2B/B2C/C2C hardware marketplace with commissions, subscriptions, featured listings, and delivery margins as revenue streams — built on a modern full-stack.</p>
+    <div class="chip-row">
+      <span class="chip">Java 21</span><span class="chip">Spring Boot 3.x</span><span class="chip">MySQL 8</span><span class="chip">Redis</span><span class="chip">Angular 17</span><span class="chip">JWT</span><span class="chip">Razorpay</span>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="reveal">
+  <div class="eyebrow">education</div>
+  <h2>Academic Background</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-date">2024 — 2026</div>
+      <h3>Master of Computer Applications (MCA)</h3>
+      <div class="org">LNCT University, Bhopal (RGPV)</div>
+      <ul><li>Coursework in Java, DBMS, Software Engineering, and AI fundamentals</li></ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2019 — 2024</div>
+      <h3>Bachelor of Computer Applications (BCA)</h3>
+      <div class="org">Gopal Narayan Singh University · CGPA 7.6/10</div>
+      <ul><li>Foundation in programming, data structures, and web development</li></ul>
+    </div>
+  </div>
+</section>
+
+<section id="certificates" class="reveal">
+  <div class="eyebrow">certificates</div>
+  <h2>Certifications & Recognition</h2>
+  <div class="cert-grid">
+    <div class="cert">
+      <div class="icon">☕</div>
+      <h4>Java Programming Fundamentals</h4>
+      <span>Infosys Springboard</span>
+    </div>
+    <div class="cert">
+      <div class="icon">🧩</div>
+      <h4>IBM Full Stack Certification</h4>
+      <span>IBM</span>
+    </div>
+    <div class="cert">
+      <div class="icon">🚀</div>
+      <h4>Smart India Hackathon</h4>
+      <span>Participant</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="reveal">
+  <div class="eyebrow">contact</div>
+  <h2>Let's Work Together</h2>
+  <div class="contact-box">
+    <p>Open to fresher Java developer roles — full-time, service-based, or product-based. Reach out directly:</p>
+    <div class="contact-links">
+      <a class="clink" href="mailto:kumarpriyanshu10900@gmail.com">✉ kumarpriyanshu10900@gmail.com</a>
+      <a class="clink" href="https://linkedin.com/in/yourprofile" target="_blank">in LinkedIn</a>
+      <a class="clink" href="https://github.com/yourusername" target="_blank">gh GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Priyanshu Kumar · Built with Java, Spring Boot & persistence.</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const sections = document.querySelectorAll('section[id]');
+
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.getElementById(tab.dataset.target).scrollIntoView({behavior:'smooth'});
+    });
+  });
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('show');
+        tabs.forEach(t=>t.classList.remove('active'));
+        const match = document.querySelector(`.tab[data-target="${e.target.id}"]`);
+        if(match) match.classList.add('active');
+      }
+    });
+  },{threshold:0.35});
+
+  sections.forEach(s=>{ s.classList.add('reveal'); io.observe(s); });
+</script>
+
+</body>
+</html>
